@@ -14,7 +14,7 @@ $(document).ready(function () {
   firebase.initializeApp(firebaseConfig);
 
   var database = firebase.database();
-  
+
   //Capture Button Click
   $("#submitForm").on("submit", function (event) {
     event.preventDefault();
@@ -26,14 +26,13 @@ $(document).ready(function () {
     var frequency = $("#frequency").val().trim();
 
     //console.log(trainName, destination, firstTrain, frequency);​
-    debugger;
+
     // Code for handling the push
     database.ref().push({
       trainName: trainName,
       destination: destination,
       firstTrain: firstTrain,
       frequency: frequency,
-      //dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
     //Clears all of the input boxes
@@ -50,35 +49,35 @@ $(document).ready(function () {
 
 
     // converts time added into human people time
-    var firstTimeConverted = moment(sv.firstTrain).format('HHmm').subtract(1, 'years')
-    console.log(firstTimeConverted)
+    var firstTimeConverted = moment(sv.firstTrain, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
 
-    
+
     // sets what our curent time is in realtime
     var currentTime = moment();
-    console.log('current time: ' + currentTime.format('HHmm'))
+    console.log('current time: ' + currentTime.format('HHmm'));
 
 
     // determines difference between current time and when train first started rolling
-    var timeDifference = moment().diff(moment(firstTimeConverted), 'minutes') 
-    console.log('time difference: ' + timeDifference)
+    var timeDifference = moment().diff(moment(firstTimeConverted), 'minutes');
+    console.log('time difference: ' + timeDifference);
 
 
     // gets value for remainder between difference in current time/current time compared to frequency of the train
     var tRemainder = timeDifference % sv.frequency;
-    console.log(tRemainder)
+    console.log(tRemainder);
 
     // gets value to know how many minutes until next train arrives
     var minutesUntilNextTrain = sv.frequency - tRemainder;
-    console.log(minutesUntilNextTrain)
+    console.log(minutesUntilNextTrain);
 
 
     // tells time of next train arrival
-    var nextArrival = moment().add(minutesUntilNextTrain, 'minutes')
-    console.log(moment(nextArrival).format('HHmm'))
+    var nextArrival = moment().add(minutesUntilNextTrain, 'minutes');
+    console.log(moment(nextArrival).format('HHmm'));
 
     // saves above value in cleaner variable
-    var trainNextArrival = moment(nextArrival).format('HHmm')
+    var trainNextArrival = moment(nextArrival).format('HHmm');
     console.log(trainNextArrival)
 
     // Console.loging the data
@@ -91,26 +90,27 @@ $(document).ready(function () {
     var $tr = $('<tr>');
 
     // takes all of the data we have and sticks it in individual divs 
-    var trainNameTd = $('<td>').text(sv.trainName)
-    var trainDestinationTd = $('<td>').text(sv.destination)
+    var trainNameTd = $('<td>').text(sv.trainName);
+    var trainDestinationTd = $('<td>').text(sv.destination);
     var trainFrequencyTd = $('<td>').text(sv.frequency);
     var trainNextArrivalTd = $('<td>').text(trainNextArrival);
     var trainMinutesAwayTd = $('<td>').text(minutesUntilNextTrain);
 
     // puts all of our informational divs into that row we built
-    $tr.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextArrivalTd, trainMinutesAwayTd)
+    $tr.append(trainNameTd, trainDestinationTd, trainFrequencyTd, trainNextArrivalTd, trainMinutesAwayTd);
 
 
     // finally displays our new row on the page
-    $('#trainTable').append($tr)
+    $('#trainTable').append($tr);
 
 
     // Handle the errors
-  }, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
+  // }, function (errorObject) {
+  //   console.log("Errors handled: " + errorObject.code);
 
 
 
-  });
+  // });
 
+})
 });
