@@ -6,7 +6,7 @@ $(document).ready(function () {
     authDomain: "train-scheduler-b9e98.firebaseapp.com",
     databaseURL: "https://train-scheduler-b9e98.firebaseio.com",
     projectId: "train-scheduler-b9e98",
-    storageBucket: "",
+    storageBucket: "train-scheduler-b9e98.appspot.com",
     messagingSenderId: "423292516636",
     appId: "1:423292516636:web:ab3d5e7690519c185ba2d9"
   };
@@ -20,22 +20,16 @@ $(document).ready(function () {
     event.preventDefault();
 
     // Grabbed values from text boxes
-    var trainName = $("#trainName").val().trim();
-    var destination = $("#destination").val().trim();
-    var firstTrain = $("#firstTrain").val().trim();
-    var frequency = $("#frequency").val().trim();
-
+    var trainData = {
+     name: $("#trainName").val().trim(),
+     destination: $("#destination").val().trim(),
+     firstTrain: $("#firstTrain").val().trim(),
+     frequency: $("#frequency").val().trim(),
+  }
     //console.log(trainName, destination, firstTrain, frequency);​
 
     // Code for handling the push
-    database.ref().push({
-      trainName: trainName,
-      destination: destination,
-      firstTrain: firstTrain,
-      frequency: frequency,
-    });
-
-    //Clears all of the input boxes
+    database.ref().push(trainData);
     $("#trainName").val("");
     $("#destination").val("");
     $("#firstTrain").val("");
@@ -49,7 +43,7 @@ $(document).ready(function () {
 
 
     // converts time added into human people time
-    var firstTimeConverted = moment(sv.firstTrain, "HH:mm").subtract(1, "years");
+    var firstTimeConverted = moment(sv.firstTrain, "HHmm").subtract(1, "years");
     console.log(firstTimeConverted);
 
 
@@ -101,16 +95,7 @@ $(document).ready(function () {
 
 
     // finally displays our new row on the page
-    $('#trainTable').append($tr);
+    $('#trainTable').append($tr)
+  });
 
-
-    // Handle the errors
-  // }, function (errorObject) {
-  //   console.log("Errors handled: " + errorObject.code);
-
-
-
-  // });
-
-})
 });
