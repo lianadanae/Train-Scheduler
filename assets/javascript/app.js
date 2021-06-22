@@ -16,24 +16,23 @@ $(document).ready(function () {
   var database = firebase.database();
 
   //Capture Button Click
-  $("#submitForm").on("submit", function (event) {
+  $("#submit-form-button").on("click", function (event) {
     event.preventDefault();
 
     // Grabbed values from text boxes
     var trainData = {
      name: $("#trainName").val().trim(),
-     destination: $("#destination").val().trim(),
-     firstTrain: $("#firstTrain").val().trim(),
-     frequency: $("#frequency").val().trim(),
-  }
-    //console.log(trainName, destination, firstTrain, frequency);​
+     destination: $("#destination-input").val().trim(),
+     firstTrain: $("#first-train-input").val().trim(),
+     frequency: $("#frequency-input").val().trim()
+  };
 
     // Code for handling the push
     database.ref().push(trainData);
     $("#trainName").val("");
-    $("#destination").val("");
-    $("#firstTrain").val("");
-    $("#frequency").val("");
+    $("#destination-input").val("");
+    $("#first-train-input").val("");
+    $("#frequency-input").val("");
   });
 
   // Firebase watcher .on("child_added"
@@ -74,8 +73,8 @@ $(document).ready(function () {
     var trainNextArrival = moment(nextArrival).format('HHmm');
     console.log(trainNextArrival)
 
-    // Console.loging the data
-    console.log(sv.trainName);
+    // log the data
+    console.log(sv.name);
     console.log(sv.destination);
     console.log(sv.firstTrain);
     console.log(sv.frequency);
@@ -84,7 +83,7 @@ $(document).ready(function () {
     var $tr = $('<tr>');
 
     // takes all of the data we have and sticks it in individual divs 
-    var trainNameTd = $('<td>').text(sv.trainName);
+    var trainNameTd = $('<td>').text(sv.name);
     var trainDestinationTd = $('<td>').text(sv.destination);
     var trainFrequencyTd = $('<td>').text(sv.frequency);
     var trainNextArrivalTd = $('<td>').text(trainNextArrival);
@@ -95,7 +94,7 @@ $(document).ready(function () {
 
 
     // finally displays our new row on the page
-    $('#trainTable').append($tr)
+    $('#train-table').append($tr)
   });
 
 });
