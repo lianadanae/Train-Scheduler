@@ -44,4 +44,4 @@ Users from many different machines must be able to view same train times.
 
 
 ## Links
-(Train Scheduler)[https://lianadanae.github.io/Train-Scheduler/]
+[Link to Train Scheduler](https://lianadanae.github.io/Train-Scheduler/)
